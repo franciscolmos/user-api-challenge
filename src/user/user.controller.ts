@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Patch, Body, Param, UseGuards, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Body, Param, UseGuards, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -15,6 +15,10 @@ export class UserController {
     @Body() userData: Omit<User, 'profilePicture'>,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    if (!file) {
+      throw new BadRequestException('No se ha subido ningún archivo');
+    }
+
     const profilePicture = file ? file.filename : null;
     return this.userService.create({ ...userData, profilePicture });
   }

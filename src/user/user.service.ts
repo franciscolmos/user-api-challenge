@@ -10,7 +10,6 @@ export class UserService {
 
   async create(userData): Promise<User> {
     const existUser = await this.findOne(userData.username);
-    console.log(existUser);
     if(existUser){
       throw new ConflictException("Username already exist");
     }
