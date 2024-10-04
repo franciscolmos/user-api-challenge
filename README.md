@@ -10,3 +10,5 @@
 ```
   mongodb://admin:secret@localhost:27017/user
 ```
+
+# Use the file: user-api.postman_collection.json from the root of the project to create all endpoints in postman
